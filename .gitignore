@@ -1,0 +1,6 @@
+*.log*
+
+server/node_modules
+server/build
+
+client/node_modules
