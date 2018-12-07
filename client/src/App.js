@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import Test from '../src/components/test/Test';
+import Layout from './components/Layout/Layout';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <p>Hello from React!</p>
-        <p>Here comes some data from the server...</p>
-        <Test />
+        <Layout />
+        
       </div>
     );
   }

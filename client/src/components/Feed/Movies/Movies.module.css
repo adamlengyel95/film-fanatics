@@ -1,0 +1,7 @@
+.Movie_container {
+    width: 60%;
+    margin: auto;
+    border-left: solid #ccc 1px;
+    border-right: solid #ccc 1px;
+
+}

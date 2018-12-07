@@ -1,0 +1,72 @@
+.Navbar {
+    display: flex;
+    background-color: #e6e6e6;
+    height: 3.5rem;
+}
+
+.Search_container {
+    display: inline-block;
+    margin: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+.Logo {
+    margin: auto 1.5rem;
+    background-color: #cccccc;
+    border: solid black 1px;
+    padding: 2px 10px;
+    border-radius: 5px;
+}
+
+.Logo a {
+    font-family: 'Kaushan Script', cursive;
+    color: black;
+    font-size: 1.7rem;
+}
+
+.Login_button {
+    margin: auto 1.5rem;
+    background-color: #ffa31a;
+    color: white;
+    padding: 8px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+input {
+    height: 2rem;
+    width: 15rem;
+    font-style: italic;
+    font-size: 1rem;
+    padding: 2px;
+    padding-left: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+.Search_container button {
+    font-size: 1rem;
+    margin-left: 0.3rem;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #ffa31a;
+    color: white;
+    font-weight: bold;
+    
+}
+
+.Search_container button:hover {
+    background-color: #e68a00;
+}
+
+.Login_button:hover {
+    background-color: #e68a00;
+}
+
+.Logo:hover {
+    background-color: #bfbfbf;
+}

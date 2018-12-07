@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/movies', (req, res) => {
-    db.query('SELECT * FROM movies', (err, rows, fields) => {
+    db.query('SELECT * FROM movies WHERE movies.release_date > "2010.01.01"', (err, rows, fields) => {
         res.json(rows);
         console.log('Fetched movies succesfully!');
     })
