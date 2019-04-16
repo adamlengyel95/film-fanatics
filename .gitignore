@@ -2,5 +2,6 @@
 
 server/node_modules
 server/build
+server/config/keys.js
 
 client/node_modules
