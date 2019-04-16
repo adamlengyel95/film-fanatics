@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Navbar.module.css';
+import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
     return(
@@ -11,7 +12,7 @@ const Navbar = (props) => {
                 <input type="text" placeholder="Film keresése.."></input>
                 <button type="submit">Keresés</button>
             </div>
-            <a className={classes.Login_button} href="#news">Bejelentkezés</a>
+            <Link to="/login" className={classes.Login_button}>Bejelentkezés</Link>
         </div>
     );
 };
