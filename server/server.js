@@ -2,10 +2,12 @@ const express = require('express');
 const db = require('./db/db');
 const authRoutes = require('./routes/auth-routes');
 const  passportSetup = require('./config/passport-setup');
+const bodyParser = require('body-parser')
 const app = express();
 
 const PORT = 5000;
 
+app.use(bodyParser());
 // Set up routes
 app.use('/auth', authRoutes);
 
@@ -17,8 +19,14 @@ app.get('/movies', (req, res) => {
 });
 
 // Test DB insertion
+
 app.get('/insert', (req, res) => {
-    const id = 1;
+    var post  = {google_id: "32352323", display_name: 'Adam MySQL'};
+    db.query('INSERT INTO users SET ?', post, function (error, results, fields) {
+        if (error) throw error;
+        console.log(results.insertId);
+        res.send(results);
+      });
     
 });
 
