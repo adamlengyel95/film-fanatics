@@ -28,16 +28,17 @@ a {
 }
 
 .Login_button {
-    margin: auto 1.5rem;
-    background-color: #ffa31a;
+    margin: auto 5px;
+    background-color: #3366ff;
     color: white;
-    padding: 8px 10px;
+    padding: 6px 8px;
     border-radius: 5px;
     font-weight: bold;
+    font-size: 0.8rem;
 }
 
 input {
-    height: 2rem;
+    height: 1.7rem;
     width: 15rem;
     font-style: italic;
     font-size: 1rem;
@@ -48,15 +49,15 @@ input {
 }
 
 .Search_container button {
-    font-size: 1rem;
+    font-size: 0.8rem;
     margin-left: 0.3rem;
     padding: 8px 10px;
     border-radius: 5px;
     border: none;
-    background-color: #ffa31a;
+    background-color: #3366ff;
     color: white;
     font-weight: bold;
-    
+    cursor: pointer;
 }
 
 .Search_container button:hover {

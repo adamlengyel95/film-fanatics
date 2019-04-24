@@ -14,12 +14,15 @@ router.get('/google', passport.authenticate('google', {
 
 //auth logout
 router.get('/logout', (req, res) => {
-    res.send('logging out');
+    req.logout();
+    res.redirect('http://localhost:3000/profile');
 });
 
 //callback route for google to redirect to
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-    res.send('you reached callback uri');
+    console.log('Logged in:', req.user.display_name);
+    //res.send(req.user);
+    res.redirect('http://localhost:3000/profile');
 });
 
 module.exports = router;
