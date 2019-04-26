@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 export class Profile extends Component {
     state = {
@@ -32,6 +32,7 @@ export class Profile extends Component {
                 <div>
                     <h1>Profilom</h1>
                     <h3>{this.state.user.display_name}</h3>
+                    <Link to="/">Vissza a főoldalra</Link>
                 </div>
                 )
         }

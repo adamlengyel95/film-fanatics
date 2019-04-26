@@ -15,7 +15,7 @@ router.get('/google', passport.authenticate('google', {
 //auth logout
 router.get('/logout', (req, res) => {
     req.logout();
-    res.redirect('http://localhost:3000/profile');
+    res.redirect('http://localhost:3000');
 });
 
 //callback route for google to redirect to

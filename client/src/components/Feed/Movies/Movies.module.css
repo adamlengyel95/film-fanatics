@@ -1,7 +1,7 @@
 .Movie_container {
+    display: inline-block;
+    position:relative;
     width: 60%;
-    margin: auto;
     border-left: solid #ccc 1px;
     border-right: solid #ccc 1px;
-
 }

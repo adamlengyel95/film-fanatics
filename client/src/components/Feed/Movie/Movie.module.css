@@ -2,6 +2,7 @@
     background-color: #f2f2f2;
     margin: 5rem auto;
     width: 60%;
+    max-width: 600px;
     height: 20rem;
     padding: 2px 8px;
     overflow: auto;

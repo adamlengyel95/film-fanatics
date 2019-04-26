@@ -1,6 +1,6 @@
 .Navbar {
     display: flex;
-    background-color: #e6e6e6;
+    background-color: #595959;
     height: 3.5rem;
 }
 
@@ -15,7 +15,7 @@ a {
 
 .Logo {
     margin: auto 1.5rem;
-    background-color: #cccccc;
+    background-color: #bfbfbf;
     border: solid black 1px;
     padding: 2px 10px;
     border-radius: 5px;
@@ -29,12 +29,12 @@ a {
 
 .Login_button {
     margin: auto 5px;
-    background-color: #3366ff;
+    background-color: #1a6aff;
     color: white;
     padding: 6px 8px;
     border-radius: 5px;
     font-weight: bold;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 input {
@@ -49,15 +49,24 @@ input {
 }
 
 .Search_container button {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     margin-left: 0.3rem;
     padding: 8px 10px;
     border-radius: 5px;
     border: none;
-    background-color: #3366ff;
+    background-color: #1a6aff;
     color: white;
     font-weight: bold;
     cursor: pointer;
+}
+
+.UserContainer {
+   display: flex;
+   float: right;
+   width: 100%;
+   justify-content: flex-end;
+   margin: 20px 10px;
+   border: 1px solid #ccc;
 }
 
 .Search_container button:hover {
