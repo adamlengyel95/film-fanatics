@@ -3,7 +3,7 @@ const db = require('./db/db');
 const keys = require('./config/keys');
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
-const  passportSetup = require('./config/passport-setup');
+const passportSetup = require('./config/passport-setup');
 const passport = require('passport');
 const bodyParser = require('body-parser')
 const cookieSession = require('cookie-session');
@@ -11,9 +11,12 @@ const app = express();
 
 const PORT = 5000;
 
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
 app.use(cookieSession({
-    maxAge: 24*60*60*1000,
+    maxAge: 24 * 60 * 60 * 1000,
     keys: [keys.session.cookieKey]
 }));
 
@@ -40,10 +43,9 @@ app.use(function (req, res, next) {
 //Initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
-app.use( (req, res, next) => {
-    console.log('req.session', req.session);
+app.use((req, res, next) => {
     return next();
-  });
+});
 
 // Set up routes
 app.use('/auth', authRoutes);
@@ -52,7 +54,6 @@ app.use('/profile', profileRoutes);
 app.get('/movies', (req, res) => {
     db.query('SELECT * FROM movies WHERE movies.release_date > "2010.01.01"', (err, rows, fields) => {
         res.json(rows);
-        console.log('Fetched movies succesfully!');
     })
 });
 
@@ -62,14 +63,13 @@ app.get('/redirect', (req, res) => {
 
 // Test for user select
 app.get('/users', (req, res) => {
-   db.query('SELECT * FROM users WHERE google_id = ?', ["202894900202616524258"], function (error, results, fields) {
+    db.query('SELECT * FROM users WHERE google_id = ?', ["202894900202616524258"], function (error, results, fields) {
         if (error) throw error;
-        console.log(results.length);
     });
-    
+
     res.send("asd");
 });
 
 app.listen(PORT, () => {
-    console.log('Server is running on port:',PORT);
+    console.log('Server is running on port:', PORT);
 });
