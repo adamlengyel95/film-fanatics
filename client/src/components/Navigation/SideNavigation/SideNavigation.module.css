@@ -19,7 +19,8 @@
     margin: 5px 2px;
     padding: 5px;
     border: solid #ccc 1px;
-    
+    cursor: pointer;
+    background-color: white;
 }
 .SideNavItem:hover{
     background-color: #e6e6e6;;

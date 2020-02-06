@@ -1,10 +1,36 @@
 .MovieBox {
-    background-color: #f2f2f2;
+    background-color: white;
+    color: #4d4d4d;
     margin: 5rem auto;
     width: 60%;
     max-width: 600px;
-    height: 20rem;
-    padding: 2px 8px;
-    overflow: auto;
-    box-shadow: 5px 10px 5px #bfbfbf;
+    padding: 12px 12px;
+    overflow: hidden;
+    box-shadow: 5px 10px 8px #b3b3b3;
+    border-radius: 12px;
+}
+
+.MovieHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.MovieCover {
+    float: right;
+    margin: 12px 0px 12px 22px;
+    border-radius: 12px;
+}
+
+.MovieTitle {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.Description {
+    text-align: justify;
+    color: #404040
+}
+
+.DescriptionTitle {
+    margin-bottom: 5px;
 }

@@ -1,10 +1,17 @@
 .Content {
     display: flex;
+    background-color: #f2f2f2;
     justify-content: space-between;
     max-width: 1400px;
     border: 1px solid black;
     margin: auto;
+    border-left: solid #ccc 1px;
+    border-right: solid #ccc 1px;
 }
 .Empty {
     width: 200px;
+}
+
+.Page {
+    background-color: #fcfcfc;
 }

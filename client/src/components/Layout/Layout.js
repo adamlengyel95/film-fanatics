@@ -3,12 +3,13 @@ import Navbar from '../Navigation/Navbar/Navbar';
 import Movies from '../Feed/Movies/Movies';
 import SideNavigation from '../Navigation/SideNavigation/SideNavigation';
 import styles from './Layout.module.css';
+import classes from './Layout.module.css';
 
 class Layout extends Component {
 
     render() {
         return(
-            <div>
+            <div className={classes.Page}>
                 <Navbar />
                 <div className={styles.Content}>
                     <SideNavigation />
