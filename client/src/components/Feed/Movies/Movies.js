@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { fetchMovies } from '../../../actions/movieActions'
 
 import Movie from '../Movie/Movie';
 import classes from './Movies.module.css';
 
 class Movies extends Component {
-    state = {
-        movies: []
-    }
+
     componentDidMount() {
-        axios.get('/movies')
-            .then(res => {
-                const movies = res.data;
-                this.setState({ movies: movies });
-            });
+        this.props.fetchMovies();
     }
+    
     render() {
         return (
             <div className={classes.Movie_container}>
                 {
-                    this.state.movies.map((movie, index) =>
+                    this.props.movies.map((movie, index) =>
                         <Movie key={index} title={movie.title} release={movie.release_date.slice(0, 10)} description={movie.description} cover={movie.movie_cover} />)
                 }
             </div>
@@ -27,4 +23,8 @@ class Movies extends Component {
     }
 }
 
-export default Movies;
+const mapStateToProps = state => ({
+    movies: state.movies.items
+});
+
+export default connect(mapStateToProps, { fetchMovies })(Movies)

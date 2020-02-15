@@ -3,6 +3,7 @@ const db = require('./db/db');
 const keys = require('./config/keys');
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
+const moviesRoutes = require('./routes/movie-routes')
 const passportSetup = require('./config/passport-setup');
 const passport = require('passport');
 const bodyParser = require('body-parser')
@@ -50,12 +51,7 @@ app.use((req, res, next) => {
 // Set up routes
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
-
-app.get('/movies', (req, res) => {
-    db.query('SELECT * FROM movies WHERE movies.release_date > "2010.01.01"', (err, rows, fields) => {
-        res.json(rows);
-    })
-});
+app.use('/movies', moviesRoutes);
 
 app.get('/redirect', (req, res) => {
     res.redirect('http://localhost:3000/profile');

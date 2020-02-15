@@ -2,11 +2,6 @@
 const router = require('express').Router();
 const passport = require('passport');
 
-//auth login
-router.get('/login', (req, res) => {
-    //Render login page, in our case it will be done in react
-});
-
 //auth with google
 router.get('/google', passport.authenticate('google', {
     scope: ['profile']
