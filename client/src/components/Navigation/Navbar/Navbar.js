@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
-import { searchMovies } from '../../../actions/movieActions'
+import { searchMovies } from '../../../actions/movieActions';
+import constants from '../../../constants/constants';
 import classes from './Navbar.module.css';
 
 class Navbar extends React.Component {
@@ -14,6 +15,7 @@ class Navbar extends React.Component {
     }
 
     componentDidMount() {
+        console.log('nav rendered')
         axios.get('/profile')
             .then(res => {
                 if (res.data.user_id) {
@@ -24,10 +26,10 @@ class Navbar extends React.Component {
     }
 
     onSignOutClick = () => {
-        axios.get('http://localhost:5000/auth/logout', { withCredentials: true })
+        console.log('signout')
+        axios.get('/auth/logout', { withCredentials: true })
             .then(function (response) {
-                console.log(response)
-
+                window.location.href = constants.BASE_URL;
             })
             .catch(function (error) {
                 console.log(error)
@@ -48,14 +50,14 @@ class Navbar extends React.Component {
             return (
                 <div className={classes.Navbar}>
                     <div className={classes.Logo}>
-                        <a href="#home">Film Fanatics</a>
+                        <a href={constants.BASE_URL}>Film Fanatics</a>
                     </div>
                     <div className={classes.Search_container}>
                         <input type="text" value={this.state.searchInput} onChange={this.onSearchInputChange} placeholder="Film keresése.."></input>
                         <button type="submit" onClick={this.onSearch}>Keresés</button>
                         <div className={classes.autoCompleteList}></div>
                     </div>
-                    <Link to="/login" className={classes.Login_button} onClick={this.onSignOutClick}>Bejelentkezés</Link>
+                    <Link to="/login" className={classes.Login_button}>Bejelentkezés</Link>
                 </div>
             );
         }
@@ -64,13 +66,13 @@ class Navbar extends React.Component {
                 <>
                     <div className={classes.Navbar}>
                         <div className={classes.Logo}>
-                            <a href="#home">Film Fanatics</a>
+                            <a href={constants.BASE_URL}>Film Fanatics</a>
                         </div>
                         <div className={classes.Search_container}>
-                            <input type="text" placeholder="Film keresése.."></input>
+                            <input type="text" value={this.state.searchInput} placeholder="Film keresése.."></input>
                             <button type="submit">Keresés</button>
                         </div>
-                        <a className={classes.Login_button} href="http://localhost:5000/auth/logout">Kijelentkezés</a>
+                        <a className={classes.Login_button} onClick={this.onSignOutClick}>Kijelentkezés</a>
                     </div>
                     <div className={classes.UserContainer}>
                         <a className={classes.LoggedInAs} href="#">Bejelentkezve: {this.state.actualUser}</a>
@@ -88,4 +90,4 @@ const mapStateToProps = state => ({
     movies: state.movies.items
 });
 
-export default connect(null, { searchMovies }) (Navbar);
+export default connect(null, { searchMovies })(Navbar);

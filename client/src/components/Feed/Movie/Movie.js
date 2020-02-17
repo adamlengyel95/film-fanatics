@@ -3,7 +3,6 @@ import React from 'react';
 import classes from './Movie.module.css';
 
 const Movie = (props) => {
-    console.log('props', props)
     const imgSrc = `images/covers/${props.cover}`
     return (
         <div className={classes.MovieBox}>
