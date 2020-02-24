@@ -5,3 +5,7 @@
     border-left: solid #ccc 1px;
     border-right: solid #ccc 1px;
 }
+
+.NoResult {
+    text-align: center;
+}

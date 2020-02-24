@@ -44,6 +44,12 @@ class Navbar extends React.Component {
         this.props.searchMovies(this.state.searchInput);
     }
 
+    enterPressed = (event) => {
+        if (event.which === 13) {
+            this.onSearch();
+        }
+    }
+
     render() {
         if (!this.state.isAuthenticated) {
 
@@ -53,7 +59,13 @@ class Navbar extends React.Component {
                         <a href={constants.BASE_URL}>Film Fanatics</a>
                     </div>
                     <div className={classes.Search_container}>
-                        <input type="text" value={this.state.searchInput} onChange={this.onSearchInputChange} placeholder="Film keresése.."></input>
+                        <input
+                            type="text"
+                            value={this.state.searchInput}
+                            onChange={this.onSearchInputChange}
+                            onKeyPress={this.enterPressed}
+                            placeholder="Film keresése..">
+                        </input>
                         <button type="submit" onClick={this.onSearch}>Keresés</button>
                         <div className={classes.autoCompleteList}></div>
                     </div>
@@ -72,7 +84,7 @@ class Navbar extends React.Component {
                             <input type="text" value={this.state.searchInput} placeholder="Film keresése.."></input>
                             <button type="submit">Keresés</button>
                         </div>
-                        <a className={classes.Login_button} onClick={this.onSignOutClick}>Kijelentkezés</a>
+                        <a className={classes.Login_button} href="http://localhost:5000/auth/logout">Kijelentkezés</a>
                     </div>
                     <div className={classes.UserContainer}>
                         <a className={classes.LoggedInAs} href="#">Bejelentkezve: {this.state.actualUser}</a>
