@@ -84,7 +84,7 @@ class Navbar extends React.Component {
                             <input type="text" value={this.state.searchInput} placeholder="Film keresése.."></input>
                             <button type="submit">Keresés</button>
                         </div>
-                        <a className={classes.Login_button} href="http://localhost:5000/auth/logout">Kijelentkezés</a>
+                        <a className={classes.Login_button} onClick={this.onSignOutClick}>Kijelentkezés</a>
                     </div>
                     <div className={classes.UserContainer}>
                         <a className={classes.LoggedInAs} href="#">Bejelentkezve: {this.state.actualUser}</a>

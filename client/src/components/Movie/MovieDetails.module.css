@@ -48,6 +48,10 @@
     border: 1px solid #ccc;
 }
 
+.CommentsTitle {
+    font-size: 1.3rem;
+}
+
 .Comment {
     background: white;
     margin-top: 10px;
@@ -59,4 +63,36 @@
 .NewComment {
     width: 100%;
 }
+
+.CommentAuthor {
+    font-weight: bold;
+    margin: 0;
+}
+
+.CommentContent {
+    margin: 8px 0 0 0;
+}
+
+.UserCommentTitle {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.SendButton {
+    background-color: #1a6aff;
+    color: white;
+    padding: 6px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: none;
+    margin: auto;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.SendButton:hover {
+    background-color: #4d8bff;
+}
+
+
 
