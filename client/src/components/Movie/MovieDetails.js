@@ -3,6 +3,7 @@ import Rating from '@material-ui/lab/Rating';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 import Navbar from '../Navigation/Navbar/Navbar'
 import classes from './MovieDetails.module.css'
@@ -40,6 +41,13 @@ export class MovieDetails extends Component {
         snackbarMessage: ''
     }
 
+    componentDidMount() {
+        axios.get('/movies/1')
+        .then((res) => {
+            this.setState({movie: res.data})
+        }).catch((err) => console.error('Error occured during fetching movie details', err))
+    }
+
     handleClick = (value) => {
         this.setState({snackbarMessage: 'Sikeresen értékelte a filmet: ' + value})
         this.setState({ open: true })
@@ -58,16 +66,16 @@ export class MovieDetails extends Component {
         let actors = '';
         this.state.movie.directors.forEach((director, index) => {
             if (index < this.state.movie.directors.length - 1) {
-                directors += director + ', ';
+                directors += director.name + ', ';
             } else {
-                directors += director;
+                directors += director.name;
             }
         });
         this.state.movie.actors.forEach((actor, index) => {
             if (index < this.state.movie.actors.length - 1) {
-                actors += actor + ', ';
+                actors += actor.name + ', ';
             } else {
-                actors += actor;
+                actors += actor.name;
             }
         })
         return (
@@ -76,7 +84,7 @@ export class MovieDetails extends Component {
                 <div className={classes.MovieDetails}>
                     <div className={classes.MovieDetailsHeader}>
                         <div>
-                            <img src={this.state.movie.cover} className={classes.MovieCover} alt="cover" />
+                            <img src={'images/covers/' + this.state.movie.cover} className={classes.MovieCover} alt="cover" />
                         </div>
                         <div className={classes.MovieInfo}>
                             <h4 className={classes.MainTitle}>{this.state.movie.title}</h4>
@@ -98,7 +106,7 @@ export class MovieDetails extends Component {
                         {
                             this.state.movie.comments.map(comment => {
                                 return <div className={classes.Comment}>
-                                    <p className={classes.CommentAuthor}>{comment.author}</p>
+                                    <p className={classes.CommentAuthor}>{comment.displayName}</p>
                                     <p className={classes.CommentContent}>{comment.content}</p>
                                 </div>
                             })
@@ -107,9 +115,6 @@ export class MovieDetails extends Component {
                     <h5 className={classes.UserCommentTitle}>Szólj hozzá</h5>
                     <textarea className={classes.NewComment}></textarea>
                     <button className={classes.SendButton}>Küldés</button>
-                    <Button variant="outlined" onClick={this.handleClick}>
-                        Open success snackbar
-                    </Button>
                     <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
                         <Alert onClose={this.handleClose} severity="success">
                             {this.state.snackbarMessage}

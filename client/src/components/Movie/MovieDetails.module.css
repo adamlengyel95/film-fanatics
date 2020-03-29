@@ -10,6 +10,12 @@
     border: 1px solid #ccc;
 }
 
+@media screen and (max-width: 1400px) {
+    .MovieDetails {
+      width: 40%;
+    }
+  }
+
 .MovieDetailsHeader {
     display: flex;
     background-color: white;
