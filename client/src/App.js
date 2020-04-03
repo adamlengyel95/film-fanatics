@@ -18,7 +18,7 @@ class App extends Component {
             <Route exact path="/" component={Layout} />
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
-            <Route path="/movie" component={MovieDetails} />
+            <Route path="/movie/:id" component={MovieDetails} />
           </div>
         </BrowserRouter>
       </Provider>

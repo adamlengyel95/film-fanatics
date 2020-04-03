@@ -18,7 +18,7 @@ class Movies extends Component {
                 <div className={classes.Movie_container}>
                     {
                         this.props.movies.map((movie, index) =>
-                            <Movie key={index} title={movie.title} release={movie.release_date.slice(0, 10)} description={movie.description} cover={movie.movie_cover} />)
+                            <Movie key={index} id={movie.movie_id} title={movie.title} release={movie.release_date.slice(0, 10)} description={movie.description} cover={movie.movie_cover} />)
                     }
                 </div>
             );

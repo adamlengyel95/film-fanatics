@@ -40,7 +40,7 @@ module.exports = {
     },
     getCommentsByMovieId: (movieId) => {
         return new Promise((resolve, reject) => {
-            db.query(`SELECT users.display_name AS displayName, comments.content AS content
+            db.query(`SELECT users.display_name AS displayName, comments.content AS content, comments.comment_id AS id
             FROM comments, users
             WHERE users.user_id = comments.user_id AND comments.movie_id = ${movieId}`,
             (err, rows, fields) => {

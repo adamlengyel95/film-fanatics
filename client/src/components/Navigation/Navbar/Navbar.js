@@ -84,10 +84,10 @@ class Navbar extends React.Component {
                             <input type="text" value={this.state.searchInput} placeholder="Film keresése.."></input>
                             <button type="submit">Keresés</button>
                         </div>
-                        <a className={classes.Login_button} onClick={this.onSignOutClick}>Kijelentkezés</a>
+                        <p className={classes.Login_button} onClick={this.onSignOutClick}>Kijelentkezés</p>
                     </div>
                     <div className={classes.UserContainer}>
-                        <a className={classes.LoggedInAs} href="#">Bejelentkezve: {this.state.actualUser}</a>
+                        <p className={classes.LoggedInAs}>Bejelentkezve: {this.state.actualUser}</p>
                     </div>
                 </>
             );
@@ -97,9 +97,5 @@ class Navbar extends React.Component {
     }
 
 };
-
-const mapStateToProps = state => ({
-    movies: state.movies.items
-});
 
 export default connect(null, { searchMovies })(Navbar);

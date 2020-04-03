@@ -102,29 +102,35 @@ router.get('/search', (req, res) => {
 });
 
 router.post('/rate', (req, res) => {
-    db.query(`SELECT * FROM rates WHERE rates.movie_id=${req.query.movieId} AND rates.user_id=${req.query.userId}`, (err, rows, fields) => {
-        if (err) {
-            res.status(500).send({ message: 'Error occured during fetching rating: ', error: err });
-        } else if (rows.length > 0) {
-            db.query(`UPDATE rates
-            SET rating = ${req.query.rating}
-            WHERE rates.movie_id=${req.query.movieId} AND rates.user_id=${req.query.userId}`, (err, rows, fields) => {
-                if (err) {
-                    res.status(500).send({ message: 'Error occured during updating rating', error: err })
-                } else {
-                    res.json({ message: 'Rating updated successfully' })
-                }
-            })
-        } else {
-            db.query(`INSERT INTO rates VALUES(${req.query.movieId},${req.query.userId},${req.query.rating})`, (err, rows, fields) => {
-                if (err) {
-                    res.status(500).send({ message: 'Error occured during adding rating: ', error: err });
-                } else {
-                    res.json({ message: 'Movie successfully rated' })
-                }
-            })
-        }
-    })
+    if (!req.user) {
+        res.status(403).send({authError: 'User is not authenticated.'})
+    } else {
+        console.log('req user', req.user.user_id)
+        console.log('post params', req)
+        db.query(`SELECT * FROM rates WHERE rates.movie_id=${req.query.movieId} AND rates.user_id=${req.user.user_id}`, (err, rows, fields) => {
+            if (err) {
+                res.status(500).send({ message: 'Error occured during fetching rating: ', error: err });
+            } else if (rows.length > 0) {
+                db.query(`UPDATE rates
+                SET rating = ${req.query.rating}
+                WHERE rates.movie_id=${req.query.movieId} AND rates.user_id=${req.user.user_id}`, (err, rows, fields) => {
+                    if (err) {
+                        res.status(500).send({ message: 'Error occured during updating rating', error: err })
+                    } else {
+                        res.json({ message: 'Rating updated successfully' })
+                    }
+                })
+            } else {
+                db.query(`INSERT INTO rates VALUES(${req.query.movieId},${req.user.user_id},${req.query.rating})`, (err, rows, fields) => {
+                    if (err) {
+                        res.status(500).send({ message: 'Error occured during adding rating: ', error: err });
+                    } else {
+                        res.json({ message: 'Movie successfully rated' })
+                    }
+                })
+            }
+        })
+    }
 })
 
 router.post('/comment', (req, res) => {
