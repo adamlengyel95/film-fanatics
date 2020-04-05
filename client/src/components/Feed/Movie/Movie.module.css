@@ -24,6 +24,11 @@
 .MovieTitle {
     display: inline-block;
     margin-top: 5px;
+    cursor: pointer;
+}
+
+.MovieTitle:hover {
+    color: #737373;
 }
 
 .Description {

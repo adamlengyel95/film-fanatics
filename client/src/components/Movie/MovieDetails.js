@@ -23,14 +23,18 @@ export class MovieDetails extends Component {
             actors: [],
             comments: []
         },
-        open: false,
-        showRatingForbidden: false,
-        showRatingError: false,
+        showSuccessMessage: false,
+        showForbiddenMessage: false,
+        showErrorMessage: false,
         snackbarMessage: '',
         commentText: ''
     }
 
     componentDidMount() {
+        this.fetchMovieDetails();
+    }
+
+    fetchMovieDetails = () => {
         axios.get(`/movies/${this.props.match.params.id}`)
             .then((res) => {
                 this.setState({ movie: res.data })
@@ -44,15 +48,16 @@ export class MovieDetails extends Component {
                 rating: value
             }
         }).then(() => {
-            this.setState({ snackbarMessage: 'Sikeresen értékelte a filmet: ' + value })
-            this.setState({ open: true })
+            this.setState({ snackbarMessage: 'Sikeresen értékelte a filmet' })
+            this.setState({ showSuccessMessage: true })
+            this.fetchMovieDetails()
         }).catch((err) => {
             if (err.response && err.response.status === 403) {
-                this.setState({ snackbarMessage: 'Az értékeléshez be kell jelentkeznie'})
-                this.setState({ showRatingForbidden: true })
+                this.setState({ snackbarMessage: 'Az értékeléshez be kell jelentkeznie' })
+                this.setState({ showForbiddenMessage: true })
             } else {
-                this.setState({ snackbarMessage: 'Hiba történt az értékelés közben'})
-                this.setState({ showRatingError: true })
+                this.setState({ snackbarMessage: 'Hiba történt az értékelés közben' })
+                this.setState({ showErrorMessage: true })
             }
         })
     }
@@ -61,7 +66,7 @@ export class MovieDetails extends Component {
         if (reason === 'clickaway') {
             return;
         }
-        this.setState({ open: false });
+        this.setState({ showSuccessMessage: false });
     };
 
     handleForbiddenClose = (event, reason) => {
@@ -69,7 +74,7 @@ export class MovieDetails extends Component {
             return;
         }
 
-        this.setState({ showRatingForbidden: false });
+        this.setState({ showForbiddenMessage: false });
     };
 
     handleErrorClose = (event, reason) => {
@@ -77,22 +82,36 @@ export class MovieDetails extends Component {
             return;
         }
 
-        this.setState({ showRatingError: false });
+        this.setState({ showErrorMessage: false });
     };
 
     onCommentChange = (event) => {
-        this.setState({commentText: event.target.value})
+        this.setState({ commentText: event.target.value })
     }
 
     onSendComment = () => {
-        axios.post('movies/comment', null, {params: {
-            movieId: this.props.match.params.id,
-            content: this.state.commentText
-        }});
+        axios.post('/movies/comment', null, {
+            params: {
+                movieId: this.props.match.params.id,
+                content: this.state.commentText
+            }
+        }).then(() => {
+            this.setState({ snackbarMessage: 'Hozzászólás elküldve' })
+            this.setState({ showSuccessMessage: true });
+            this.setState({ commentText: '' })
+            this.fetchMovieDetails()
+        }).catch((err) => {
+            if (err.response && err.response.status === 403) {
+                this.setState({ snackbarMessage: 'A hozzászóláshoz be kell jelentkeznie' })
+                this.setState({ showForbiddenMessage: true })
+            } else {
+                this.setState({ snackbarMessage: 'Hiba történt a hozzászólás elküldése közben' })
+                this.setState({ showErrorMessage: true })
+            }
+        });
     }
 
     render() {
-        console.log('route', this.props.match.params.id)
         let directors = '';
         let actors = '';
         this.state.movie.directors.forEach((director, index) => {
@@ -145,19 +164,19 @@ export class MovieDetails extends Component {
                         }
                     </div>
                     <h5 className={classes.UserCommentTitle}>Szólj hozzá</h5>
-                    <textarea className={classes.NewComment} onChange={this.onCommentChange}></textarea>
-                    <button className={classes.SendButton}>Küldés</button>
-                    <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
+                    <textarea className={classes.NewComment} onChange={this.onCommentChange} value={this.state.commentText}></textarea>
+                    <button className={classes.SendButton} onClick={this.onSendComment}>Küldés</button>
+                    <Snackbar open={this.state.showSuccessMessage} autoHideDuration={6000} onClose={this.handleClose}>
                         <Alert onClose={this.handleClose} severity="success">
                             {this.state.snackbarMessage}
                         </Alert>
                     </Snackbar>
-                    <Snackbar open={this.state.showRatingForbidden} autoHideDuration={6000} onClose={this.handleForbiddenClose}>
+                    <Snackbar open={this.state.showForbiddenMessage} autoHideDuration={6000} onClose={this.handleForbiddenClose}>
                         <Alert onClose={this.handleForbiddenClose} severity="info">
                             {this.state.snackbarMessage}
                         </Alert>
                     </Snackbar>
-                    <Snackbar open={this.state.showRatingError} autoHideDuration={6000} onClose={this.handleErrorClose}>
+                    <Snackbar open={this.state.showErrorMessage} autoHideDuration={6000} onClose={this.handleErrorClose}>
                         <Alert onClose={this.handleErrorClose} severity="error">
                             {this.state.snackbarMessage}
                         </Alert>

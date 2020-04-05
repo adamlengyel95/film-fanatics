@@ -105,8 +105,6 @@ router.post('/rate', (req, res) => {
     if (!req.user) {
         res.status(403).send({authError: 'User is not authenticated.'})
     } else {
-        console.log('req user', req.user.user_id)
-        console.log('post params', req)
         db.query(`SELECT * FROM rates WHERE rates.movie_id=${req.query.movieId} AND rates.user_id=${req.user.user_id}`, (err, rows, fields) => {
             if (err) {
                 res.status(500).send({ message: 'Error occured during fetching rating: ', error: err });
@@ -134,13 +132,18 @@ router.post('/rate', (req, res) => {
 })
 
 router.post('/comment', (req, res) => {
-    db.query(`INSERT INTO comments (movie_id, user_id, content) VALUES(${req.query.movieId},${req.query.userId},"${req.query.content}")`, (err, rows, fields) => {
-        if (err) {
-            res.status(500).send({ message: 'Error occured during adding comment: ', error: err });
-        } else {
-            res.json({ message: 'Comment successfully added' })
-        }
-    })
+    console.log('req user', req.user)
+    if (!req.user) {
+        res.status(403).send({authError: 'User is not authenticated.'})
+    } else {
+        db.query(`INSERT INTO comments (movie_id, user_id, content) VALUES(${req.query.movieId},${req.user.user_id},"${req.query.content}")`, (err, rows, fields) => {
+            if (err) {
+                res.status(500).send({ message: 'Error occured during adding comment: ', error: err });
+            } else {
+                res.json({ message: 'Comment successfully added' })
+            }
+        })
+    }
 });
 
 module.exports = router;

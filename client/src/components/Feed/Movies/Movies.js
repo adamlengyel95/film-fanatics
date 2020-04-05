@@ -10,9 +10,8 @@ class Movies extends Component {
     componentDidMount() {
         this.props.fetchMovies();
     }
-    
-    render() {
 
+    render() {
         if (this.props.movies.length > 0) {
             return (
                 <div className={classes.Movie_container}>
