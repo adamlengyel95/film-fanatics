@@ -17,7 +17,7 @@ router.get('/logout', (req, res) => {
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     console.log('Logged in:', req.user.display_name);
     //res.send(req.user);
-    res.redirect('http://localhost:3000/profile');
+    res.redirect('http://localhost:3000/');
 });
 
 module.exports = router;

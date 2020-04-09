@@ -35,6 +35,22 @@ a {
     border-radius: 5px;
     font-weight: bold;
     font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.Logout_button {
+    margin: auto 5px;
+    background-color: #ff5c33;
+    color: white;
+    padding: 6px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.Logout_button:hover {
+    background-color: #ff704d;
 }
 
 input {
@@ -70,11 +86,11 @@ input {
 }
 
 .Search_container button:hover {
-    background-color: #e68a00;
+    background-color: #4d8bff;
 }
 
 .Login_button:hover {
-    background-color: #e68a00;
+    background-color: #4d8bff;
 }
 
 .Logo:hover {

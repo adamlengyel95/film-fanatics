@@ -4,6 +4,7 @@ const keys = require('./config/keys');
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
 const moviesRoutes = require('./routes/movie-routes')
+const artistRoutes = require('./routes/artist-routes')
 const passportSetup = require('./config/passport-setup');
 const passport = require('passport');
 const bodyParser = require('body-parser')
@@ -52,6 +53,7 @@ app.use((req, res, next) => {
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
 app.use('/movies', moviesRoutes);
+app.use('/artists', artistRoutes)
 
 app.get('/redirect', (req, res) => {
     res.redirect('http://localhost:3000/profile');

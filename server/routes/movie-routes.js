@@ -33,6 +33,13 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get('/search', (req, res) => {
+    console.log('title', req.query.title)
+    db.query(`SELECT * FROM movies WHERE movies.title LIKE "%${req.query.title}%"`, (err, rows, fields) => {
+        res.json(rows);
+    })
+});
+
 router.get('/:movieId', (req, res) => {
     const response = {};
     const errors = [];
@@ -92,12 +99,6 @@ router.get('/:movieId', (req, res) => {
         } else {
             res.send(response)
         }
-    })
-});
-
-router.get('/search', (req, res) => {
-    db.query(`SELECT * FROM movies WHERE movies.title LIKE "%${req.query.title}%"`, (err, rows, fields) => {
-        res.json(rows);
     })
 });
 
