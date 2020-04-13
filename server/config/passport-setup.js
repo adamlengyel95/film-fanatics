@@ -24,16 +24,11 @@ passport.use(
         db.query('SELECT * FROM users WHERE google_id = ?', [profile.id], (error, results, fields) => {
             if (error) throw error;
             if(results.length !== 0) {
-                console.log("Already exits.");
-                console.log('User id:', results[0].user_id);
-                console.log("Display name: ", results[0].display_name);
                 done(null, results[0])
             } else {
                 const post  = {google_id: profile.id, display_name: profile.displayName};
                 db.query('INSERT INTO users SET ?', post, (error, results, fields) => {
                     if (error) throw error;
-                    console.log('Insert result: ', results);
-                    console.log('insert field: ', fields)
                     const newUser = {
                         user_id: results.insertId,
                         google_id: profile.id,
@@ -42,7 +37,6 @@ passport.use(
                     done(null, newUser)
                 });
             }
-            console.log(results.length);
         });
         
     })

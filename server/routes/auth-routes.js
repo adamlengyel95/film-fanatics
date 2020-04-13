@@ -15,7 +15,6 @@ router.get('/logout', (req, res) => {
 
 //callback route for google to redirect to
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-    console.log('Logged in:', req.user.display_name);
     //res.send(req.user);
     res.redirect('http://localhost:3000/');
 });

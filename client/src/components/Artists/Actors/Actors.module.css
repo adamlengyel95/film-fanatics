@@ -1,0 +1,6 @@
+.ActorsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 60px;
+    justify-content: space-evenly;
+}

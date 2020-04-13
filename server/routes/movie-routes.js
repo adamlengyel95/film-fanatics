@@ -34,7 +34,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/search', (req, res) => {
-    console.log('title', req.query.title)
     db.query(`SELECT * FROM movies WHERE movies.title LIKE "%${req.query.title}%"`, (err, rows, fields) => {
         res.json(rows);
     })
@@ -133,7 +132,6 @@ router.post('/rate', (req, res) => {
 })
 
 router.post('/comment', (req, res) => {
-    console.log('req user', req.user)
     if (!req.user) {
         res.status(403).send({authError: 'User is not authenticated.'})
     } else {

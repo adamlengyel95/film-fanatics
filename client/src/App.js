@@ -7,6 +7,7 @@ import Layout from './components/Layout/Layout';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import MovieDetails from './components/Movie/MovieDetails';
+import Actors from './components/Artists/Actors/Actors';
 
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
             <Route path="/movie/:id" component={MovieDetails} />
+            <Route path="/actors" component={Actors} />
           </div>
         </BrowserRouter>
       </Provider>

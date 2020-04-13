@@ -1,0 +1,31 @@
+.ActorContainer {
+    background-color: #f2f2f2;
+    border-color: #ccc;
+    margin: 10px;
+    border-radius: 12px;
+    box-shadow: 5px 10px 8px #b3b3b3;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.ActorImage {
+    max-height: 250px;
+    border-radius: 12px;
+}
+
+.DetailsButton {
+    display: block;
+    background-color: #1a6aff;
+    color: white;
+    padding: 6px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: none;
+    margin: auto;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.DetailsButton:hover {
+    background-color: #4d8bff;
+}
