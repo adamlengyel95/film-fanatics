@@ -2,7 +2,7 @@ import { FETCH_MOVIES, SEARCH_MOVIES } from './types';
 import axios from 'axios';
 
 export const fetchMovies = () => dispatch => {
-    axios.get('/movies')
+    axios.get('/movies/home')
         .then(res => {
             const movies = res.data;
             console.log('movies', movies)

@@ -1,6 +1,10 @@
-.ActorContainer {
+.CardContainer {
+    width: min-content;
+    height: fit-content;
     background-color: #f2f2f2;
     border-color: #ccc;
+    color: #4d4d4d;
+    font-weight: bold;
     margin: 10px;
     border-radius: 12px;
     box-shadow: 5px 10px 8px #b3b3b3;
@@ -8,14 +12,24 @@
     padding: 10px;
 }
 
-.ActorImage {
+.CardContainer:hover {
+    background-color:  #e6e6e6;
+    cursor: pointer;
+}
+
+.Title {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.CardImage {
     max-height: 250px;
     border-radius: 12px;
 }
 
 .DetailsButton {
     display: block;
-    background-color: #1a6aff;
+    background-color: #337aff;
     color: white;
     padding: 6px 8px;
     border-radius: 5px;

@@ -11,11 +11,20 @@ class Navbar extends React.Component {
     state = {
         isAuthenticated: false,
         actualUser: '',
-        searchInput: ''
+        searchInput: '',
+        searchPlaceholder: ''
     }
 
     componentDidMount() {
-        console.log('nav rendered')
+        if (window.location.pathname === '/actors') {
+            this.setState({searchPlaceholder: 'Színész keresése...'})
+        }
+        else if (window.location.pathname === '/directors') {
+            this.setState({searchPlaceholder: 'Rendező keresése...'})
+        } else {
+            this.setState({searchPlaceholder: 'Film keresése...'})
+        }
+        console.log('loc',window.location.pathname)
         axios.get('/profile')
             .then(res => {
                 if (res.data.user_id) {
@@ -64,7 +73,7 @@ class Navbar extends React.Component {
                             value={this.state.searchInput}
                             onChange={this.onSearchInputChange}
                             onKeyPress={this.enterPressed}
-                            placeholder="Film keresése..">
+                            placeholder={this.state.searchPlaceholder}>
                         </input>
                         <button type="submit" onClick={this.onSearch}>Keresés</button>
                         <div className={classes.autoCompleteList}></div>
@@ -86,7 +95,7 @@ class Navbar extends React.Component {
                                 value={this.state.searchInput}
                                 onChange={this.onSearchInputChange}
                                 onKeyPress={this.enterPressed}
-                                placeholder="Film keresése..">
+                                placeholder={this.state.searchPlaceholder}>
                             </input>
                             <button type="submit">Keresés</button>
                         </div>

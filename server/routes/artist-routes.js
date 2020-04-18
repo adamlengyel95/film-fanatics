@@ -20,4 +20,31 @@ router.get('/actors', (req, res) => {
         })
 });
 
+router.get('/director', (req, res) => {
+    artistService.getDirectorsByName(req.query.name)
+        .then((result) => {
+            res.send(result);
+        }).catch((err) => {
+            res.status(500).send({ message: 'Error occured during fetching directors by name', errors: err })
+        })
+})
+
+router.get('/actor', (req, res) => {
+    artistService.getActorsByName(req.query.name)
+        .then((result) => {
+            res.send(result);
+        }).catch((err) => {
+            res.status(500).send({ message: 'Error occured during fetching actors by name', errors: err })
+        })
+})
+
+router.get('/:artistId', (req, res) => {
+    artistService.getArtistDetails(req.params.artistId)
+        .then((result) => {
+            res.send(result);
+        }).catch((err) => {
+            res.status(500).send({ message: 'Error occured during fetching artist details', errors: err })
+        })
+})
+
 module.exports = router;

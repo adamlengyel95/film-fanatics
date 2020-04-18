@@ -17,10 +17,10 @@ class SideNavigation extends Component {
             <a className={styles.SideNavLink} href="http://localhost:3000">Műfajok</a>
           </li>
           <li className={styles.SideNavItem}>
-            <a className={styles.SideNavLink} href="http://localhost:3000">Filmek</a>
+            <Link to="/movies" className={styles.SideNavLink}>Filmek</Link>
           </li>
           <li className={styles.SideNavItem}>
-            <a className={styles.SideNavLink} href="http://localhost:3000">Rendezők</a>
+            <Link to="/directors" className={styles.SideNavLink}>Rendezők</Link>
           </li>
         </ul>
       </div>

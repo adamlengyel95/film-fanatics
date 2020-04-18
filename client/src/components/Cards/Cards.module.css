@@ -1,0 +1,17 @@
+.ActorsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 300px;
+    justify-content: space-evenly;
+}
+
+.ActorsContainer:after {
+    content: "";
+    flex: 0.98;
+}
+
+@media screen and (max-width: 1400px) {
+    .MovieDetails {
+        margin: 10px 60px;
+    }
+}
