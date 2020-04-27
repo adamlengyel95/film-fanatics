@@ -33,6 +33,15 @@
     margin: 5px 0px 10px 0px;
 }
 
+.ArtistName {
+    display: inline;
+}
+
+.ArtistName:hover {
+    cursor: pointer;
+    color: black;
+}
+
 .SubTitle {
     font-size: 1rem;
     margin: 10px 0px 3px 0px;

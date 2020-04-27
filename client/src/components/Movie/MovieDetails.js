@@ -41,6 +41,10 @@ export class MovieDetails extends Component {
             }).catch((err) => console.error('Error occured during fetching movie details', err))
     }
 
+    goToArtistPage = (id) => {
+        this.props.history.push(`/artists/${id}`);
+    }
+
     onRatingChange = (value) => {
         axios.post('/movies/rate', null, {
             params: {
@@ -112,22 +116,6 @@ export class MovieDetails extends Component {
     }
 
     render() {
-        let directors = '';
-        let actors = '';
-        this.state.movie.directors.forEach((director, index) => {
-            if (index < this.state.movie.directors.length - 1) {
-                directors += director.name + ', ';
-            } else {
-                directors += director.name;
-            }
-        });
-        this.state.movie.actors.forEach((actor, index) => {
-            if (index < this.state.movie.actors.length - 1) {
-                actors += actor.name + ', ';
-            } else {
-                actors += actor.name;
-            }
-        })
         return (
             <>
                 <Navbar />
@@ -146,9 +134,13 @@ export class MovieDetails extends Component {
                             <h5 className={classes.SubTitle}>Megjelenés: </h5>
                             <p className={classes.HeaderText}>{new Date(this.state.movie.releaseDate).toLocaleDateString()}</p>
                             <h5 className={classes.SubTitle}>Rendezte: </h5>
-                            <p className={classes.HeaderText}>{directors}</p>
+                            {this.state.movie.directors.map((director, index) => {
+                                return <p className={classes.ArtistName} onClick={() => this.goToArtistPage(director.id)}>{director.name}{index === this.state.movie.directors.length -1 ? '' : ', '}</p>
+                            })}
                             <h5 className={classes.SubTitle}>Szereplők: </h5>
-                            <p className={classes.HeaderText}>{actors}</p>
+                            {this.state.movie.actors.map((actor, index) => {
+                                return <p className={classes.ArtistName} onClick={() => this.goToArtistPage(actor.id)}>{actor.name}{index === this.state.movie.actors.length -1 ? '' : ', '}</p>
+                            })}
                         </div>
                     </div>
                     <div className={classes.Description}>{this.state.movie.description}</div>

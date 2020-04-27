@@ -22,8 +22,6 @@ export class Profile extends Component {
     }
 
     render() {
-        console.log('user üres e', this.state.triggerRedirect)
-        console.log(this.state.triggerRedirect)
         if(this.state.triggerRedirect) {
             return <Redirect from="*" to={{pathname: '/login'}} />;
         }

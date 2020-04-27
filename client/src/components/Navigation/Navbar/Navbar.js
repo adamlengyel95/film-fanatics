@@ -24,7 +24,6 @@ class Navbar extends React.Component {
         } else {
             this.setState({searchPlaceholder: 'Film keresése...'})
         }
-        console.log('loc',window.location.pathname)
         axios.get('/profile')
             .then(res => {
                 if (res.data.user_id) {
@@ -35,13 +34,12 @@ class Navbar extends React.Component {
     }
 
     onSignOutClick = () => {
-        console.log('signout')
         axios.get('/auth/logout', { withCredentials: true })
             .then(function (response) {
                 window.location.href = constants.BASE_URL;
             })
             .catch(function (error) {
-                console.log(error)
+                console.error(error)
             });
     }
 

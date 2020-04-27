@@ -32,7 +32,7 @@ class Movies extends Component {
 }
 
 const mapStateToProps = state => ({
-    movies: state.movies.items
+    movies: state.movies.homeItems
 });
 
 export default connect(mapStateToProps, { fetchMovies })(Movies)

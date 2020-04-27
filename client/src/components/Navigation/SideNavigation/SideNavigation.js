@@ -1,26 +1,28 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import styles from './SideNavigation.module.css'
 
 class SideNavigation extends Component {
-  goToActorsPage = () => {
-    this.props.history.push(`/movie/${this.props.id}`)
+
+  goToPage = (path) => {
+    this.props.history.push(path)
   }
+
   render() {
     return (
       <div className={styles.SideNavigation}>
         <ul>
-          <li className={styles.SideNavItem}>
-            <Link to="/actors" className={styles.SideNavLink}>Színészek/Színésznők</Link>
+          <li className={styles.SideNavItem} onClick={() => this.goToPage('/actors')}>
+            <p className={styles.SideNavLink}>Színészek/Színésznők</p>
           </li>
-          <li className={styles.SideNavItem}>
-            <a className={styles.SideNavLink} href="http://localhost:3000">Műfajok</a>
+          <li className={styles.SideNavItem} onClick={() => this.goToPage('/genres')}>
+            <p className={styles.SideNavLink} href="http://localhost:3000">Műfajok</p>
           </li>
-          <li className={styles.SideNavItem}>
-            <Link to="/movies" className={styles.SideNavLink}>Filmek</Link>
+          <li className={styles.SideNavItem} onClick={() => this.goToPage('/movies')}>
+            <p className={styles.SideNavLink}>Filmek</p>
           </li>
-          <li className={styles.SideNavItem}>
-            <Link to="/directors" className={styles.SideNavLink}>Rendezők</Link>
+          <li className={styles.SideNavItem} onClick={() => this.goToPage('/directors')}>
+            <p className={styles.SideNavLink}>Rendezők</p>
           </li>
         </ul>
       </div>
@@ -28,4 +30,4 @@ class SideNavigation extends Component {
   }
 }
 
-export default SideNavigation;
+export default withRouter(SideNavigation);

@@ -8,6 +8,9 @@ class Card extends Component {
     onCardClick = () => {
         if (window.location.pathname === '/movies') {
             this.props.history.push(`/movie/${this.props.id}`)
+        } else {
+            this.props.history.push(`/artists/${this.props.id}`,
+                { details: { name: this.props.title, imageName: this.props.imageName } })
         }
     }
 
