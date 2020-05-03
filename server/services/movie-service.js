@@ -13,6 +13,20 @@ module.exports = {
             })
         })
     },
+    getLatestMovies: () => {
+        return new Promise((resolve, reject) => {
+            db.query(`SELECT *
+            FROM movies
+            ORDER BY movies.release_date DESC
+            LIMIT 10`)
+        }, (err, rows, fields) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        })
+    },
     getMovieById: (movieId) => {
         return new Promise((resolve, reject) => {
             db.query(`SELECT * FROM movies WHERE movie_id=${movieId}`, (err, rows, fields) => {
@@ -52,7 +66,7 @@ module.exports = {
     },
     getArtistIdsByMovies: () => {
         return new Promise((resolve, reject) => {
-            db.query(`SELECT GROUP_CONCAT(artists.artist_id) as artistId, movies.movie_id, movies.release_date as releaseDate, movies.title, movies.description
+            db.query(`SELECT GROUP_CONCAT(artists.artist_id) as artistIds, movies.movie_id as movieId, movies.release_date as releaseDate, movies.title, movies.description, movies.movie_cover AS imageName
             FROM works_on, artists , movies
             WHERE works_on.movie_id = movies.movie_id AND works_on.artist_id = artists.artist_id
             GROUP BY movies.movie_id`, (err, rows, fields) => {

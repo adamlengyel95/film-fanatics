@@ -133,6 +133,7 @@ module.exports = {
         })
     },
     getUserFollows: (userId) => {
+        console.log('userId', userId)
         return new Promise((resolve, reject) => {
             db.query(`SELECT artists.artist_id as id, artists.artist_name as name, artists.profile_picture AS imageName
             FROM artists, users, follows
