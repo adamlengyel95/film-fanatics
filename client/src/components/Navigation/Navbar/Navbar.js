@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
 import { searchMovies } from '../../../actions/movieActions';
+import { fetchActorsByName, fetchDirectorsByName, fetchMoviesByTitle } from '../../../actions/cardActions';
 import constants from '../../../constants/constants';
 import classes from './Navbar.module.css';
 
@@ -17,12 +18,12 @@ class Navbar extends React.Component {
 
     componentDidMount() {
         if (window.location.pathname === '/actors') {
-            this.setState({searchPlaceholder: 'Színész keresése...'})
+            this.setState({ searchPlaceholder: 'Színész keresése...' })
         }
         else if (window.location.pathname === '/directors') {
-            this.setState({searchPlaceholder: 'Rendező keresése...'})
+            this.setState({ searchPlaceholder: 'Rendező keresése...' })
         } else {
-            this.setState({searchPlaceholder: 'Film keresése...'})
+            this.setState({ searchPlaceholder: 'Film keresése...' })
         }
         axios.get('/profile')
             .then(res => {
@@ -47,8 +48,29 @@ class Navbar extends React.Component {
         this.setState({ searchInput: e.target.value })
     }
 
+    goToProfilePage = () => {
+        this.props.history.push(`/profile`)
+    }
+
+    goToMoviesPage = () => {
+        this.props.history.push({
+            pathname: '/movies',
+            state: { searchInput: this.state.searchInput }
+          })
+    }
+
     onSearch = () => {
-        this.props.searchMovies(this.state.searchInput);
+        if (window.location.pathname === '/') {
+            this.props.searchMovies(this.state.searchInput);
+        } else if (window.location.pathname === '/actors') {
+            this.props.fetchActorsByName(this.state.searchInput);
+        } else if (window.location.pathname === '/directors') {
+            this.props.fetchDirectorsByName(this.state.searchInput);
+        } else if (window.location.pathname === '/movies') {
+            this.props.fetchMoviesByTitle(this.state.searchInput);
+        } else {
+           this.goToMoviesPage();
+        }
     }
 
     enterPressed = (event) => {
@@ -85,7 +107,7 @@ class Navbar extends React.Component {
                 <>
                     <div className={classes.Navbar}>
                         <div className={classes.Logo}>
-                            <a href={constants.BASE_URL}>Film Fanatics</a>
+                            <Link to="/">Film Fanatics</Link>
                         </div>
                         <div className={classes.Search_container}>
                             <input
@@ -97,7 +119,7 @@ class Navbar extends React.Component {
                             </input>
                             <button type="submit">Keresés</button>
                         </div>
-                        <p className={classes.Login_button}>{this.state.actualUser.split(' ')[0]}</p>
+                        <p className={classes.Login_button} onClick={this.goToProfilePage}>{this.state.actualUser.split(' ')[0]}</p>
                         <p className={classes.Logout_button} onClick={this.onSignOutClick}>Kijelentkezés</p>
                     </div>
                 </>
@@ -109,4 +131,4 @@ class Navbar extends React.Component {
 
 };
 
-export default connect(null, { searchMovies })(Navbar);
+export default withRouter(connect(null, { searchMovies, fetchActorsByName, fetchDirectorsByName, fetchMoviesByTitle })(Navbar));

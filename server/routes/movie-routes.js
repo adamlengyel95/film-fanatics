@@ -17,11 +17,20 @@ router.get('/home', (req, res) => {
     })
 });
 
-router.get('/search', (req, res) => {
+router.get('/search-home', (req, res) => {
     db.query(`SELECT * FROM movies WHERE movies.title LIKE "%${req.query.title}%"`, (err, rows, fields) => {
         res.json(rows);
     })
 });
+
+router.get('/search', (req, res) => {
+    movieService.getMoviesByTitle(req.query.title)
+    .then((result) => {
+        res.send(result);
+    }).catch((err) => {
+        res.status(500).send({ message: 'Error occuerd during fetching movies by title', error: err})
+    })
+})
 
 router.post('/rate', (req, res) => {
     if (!req.user) {
@@ -85,6 +94,15 @@ router.get('/genre', (req, res) => {
     })
 })
 
+router.get('/release', (req, res) => {
+    movieService.getMoviesByDateInterval(req.query.fromDate, req.query.toDate)
+    .then((result) => {
+        res.send(result);
+    }).catch((err) => {
+        res.status(500).send({ message: 'Error occured during fetching movies by date interval', error: err})
+    })
+})
+
 router.get('/:movieId', (req, res) => {
     const response = {};
     const errors = [];
@@ -124,6 +142,7 @@ router.get('/:movieId', (req, res) => {
         .then((result) => {
             if (result.length > 0) {
                 response.rating = Math.round(result[0].rating * 2) / 2;
+                response.ratingCount = result[0].ratingCount;
             } else {
                 response.rating = 0;
             }

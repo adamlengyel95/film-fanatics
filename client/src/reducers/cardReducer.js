@@ -1,4 +1,4 @@
-import { FETCH_CARDS } from '../actions/types';
+import { FETCH_CARDS, CLEAR_CARDS } from '../actions/types';
 
 const initialState = {
     data: []
@@ -10,6 +10,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 data: action.payload
+            }
+        case CLEAR_CARDS:
+            return {
+                ...state,
+                data: []
             }
         default:
             return state;

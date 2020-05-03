@@ -131,15 +131,16 @@ export class MovieDetails extends Component {
                                 value={this.state.movie.rating}
                                 precision={0.5}
                                 onChange={(event, value) => this.onRatingChange(value)} />
+                            <p className={classes.RatingCount}>({this.state.movie.ratingCount})</p>
                             <h5 className={classes.SubTitle}>Megjelenés: </h5>
                             <p className={classes.HeaderText}>{new Date(this.state.movie.releaseDate).toLocaleDateString()}</p>
                             <h5 className={classes.SubTitle}>Rendezte: </h5>
                             {this.state.movie.directors.map((director, index) => {
-                                return <p className={classes.ArtistName} onClick={() => this.goToArtistPage(director.id)}>{director.name}{index === this.state.movie.directors.length -1 ? '' : ', '}</p>
+                                return <p key={index} className={classes.ArtistName} onClick={() => this.goToArtistPage(director.id)}>{director.name}{index === this.state.movie.directors.length -1 ? '' : ', '}</p>
                             })}
                             <h5 className={classes.SubTitle}>Szereplők: </h5>
                             {this.state.movie.actors.map((actor, index) => {
-                                return <p className={classes.ArtistName} onClick={() => this.goToArtistPage(actor.id)}>{actor.name}{index === this.state.movie.actors.length -1 ? '' : ', '}</p>
+                                return <p key={index} className={classes.ArtistName} onClick={() => this.goToArtistPage(actor.id)}>{actor.name}{index === this.state.movie.actors.length -1 ? '' : ', '}</p>
                             })}
                         </div>
                     </div>

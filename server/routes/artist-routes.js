@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const db = require('../db/db');
 const artistService = require('../services/artist-service');
 
 router.get('/directors', (req, res) => {
@@ -97,6 +96,9 @@ router.get('/:artistId', (req, res) => {
             response.id = result[0].id;
             response.name = result[0].name;
             response.imageName = result[0].profilePicture;
+            response.birthDate = result[0].birthDate;
+            response.birthPlace = result[0].birthPlace;
+            response.height = result[0].height;
         }).catch((err) => {
             errors.push({ message: 'Error occured during fetching actor name by id', error: err })
         })

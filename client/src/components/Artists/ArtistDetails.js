@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import Rating from '@material-ui/lab/Rating';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { withRouter } from 'react-router-dom';
 
 import Navbar from '../Navigation/Navbar/Navbar'
+import MovieListItem from '../Movie/MovieListItem'
 import classes from './ArtistDetails.module.css'
 
 function Alert(props) {
@@ -39,7 +39,7 @@ class ArtistDetails extends Component {
     }
 
     onFollowClicked = () => {
-        axios.post('/artists/follows', null, {
+        axios.post('/artists/follow', null, {
             params: {
                 artistId: this.state.artistDetails.id
             }
@@ -50,7 +50,7 @@ class ArtistDetails extends Component {
                 this.setState({ snackbarMessage: 'Az értékeléshez be kell jelentkeznie' })
                 this.setState({ showForbiddenMessage: true })
             } else {
-                this.setState({ snackbarMessage: 'Hiba történt az értékelés közben' })
+                this.setState({ snackbarMessage: 'Hiba történt a követés közben' })
                 this.setState({ showErrorMessage: true })
             }
         })
@@ -96,9 +96,9 @@ class ArtistDetails extends Component {
                         </div>
                         <div className={classes.ArtistInfo}>
                             <h4 className={classes.ActorName}>{this.state.artistDetails.name}</h4>
-                            <p><span className={classes.ArtistInfoTitle}>Született:</span> 1978. 04. 22.</p>
-                            <p><span className={classes.ArtistInfoTitle}>Születési hely:</span> USA, California</p>
-                            <p><span className={classes.ArtistInfoTitle}>Magasság:</span> 183 cm</p>
+                            <p><span className={classes.ArtistInfoTitle}>Született:</span> {new Date(this.state.artistDetails.birthDate).toLocaleDateString()}</p>
+                            <p><span className={classes.ArtistInfoTitle}>Születési hely:</span> {this.state.artistDetails.birthPlace}</p>
+                            <p><span className={classes.ArtistInfoTitle}>Magasság:</span> {this.state.artistDetails.height} cm</p>
                             {followButton}
                         </div>
                     </div>
@@ -107,24 +107,17 @@ class ArtistDetails extends Component {
                         <div className={classes.Comments}>
                             {
                                 this.state.artistDetails.movies.map(movie => {
-                                    return <div key={movie.id} className={classes.MovieContainer} onClick={() => this.goToMovieDetailsPage(movie.id)}>
-                                        <div className={classes.moveCoverContainer}>
-                                            <img className={classes.MovieCover} src={`../../../images/covers/${movie.imageName}`} alt="cover" />
-                                        </div>
-                                        <div className={classes.MovieInfo}>
-                                            <p className={classes.MovieTitle}>{movie.title} ({new Date(movie.releaseDate).getFullYear()})</p>
-                                            <Rating
-                                                name="movieRating"
-                                                className={classes.Rating}
-                                                value={movie.rating == null ? 0 : movie.rating}
-                                                precision={0.5}
-                                                readOnly
-                                                onChange={(event, value) => this.onRatingChange(value)} />
-                                            <p className={classes.RatingCount}>({movie.ratingCount})</p>
-                                            <p className={classes.DirectorLabel}><span className={classes.ArtistInfoTitle}>Rendezte:</span> {movie.directors}</p>
-
-                                        </div>
-                                    </div>
+                                    return <MovieListItem
+                                        key={movie.id}
+                                        id={movie.id}
+                                        imageName={movie.imageName}
+                                        title={movie.title}
+                                        releaseDate={movie.releaseDate}
+                                        rating={movie.rating}
+                                        ratingCount={movie.ratingCount}
+                                        directors={movie.directors}
+                                        showRatingCount={true}
+                                    />
                                 })
                             }
                         </div>

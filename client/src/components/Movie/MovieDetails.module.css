@@ -109,5 +109,12 @@
     background-color: #4d8bff;
 }
 
+.RatingCount {
+    display: inline;
+    vertical-align: super;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
 
 

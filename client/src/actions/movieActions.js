@@ -5,7 +5,6 @@ export const fetchMovies = () => dispatch => {
     axios.get('/movies/home')
         .then(res => {
             const movies = res.data;
-            console.log('movies', movies)
             dispatch({
                 type: FETCH_MOVIES,
                 payload: movies
@@ -14,7 +13,7 @@ export const fetchMovies = () => dispatch => {
 }
 
 export const searchMovies = title => dispatch => {
-    axios.get('/movies/search', {
+    axios.get('/movies/search-home', {
         params:
             { title: title }
     }).then(res => {

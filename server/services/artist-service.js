@@ -60,7 +60,8 @@ module.exports = {
     },
     getArtistById: (id) => {
         return new Promise((resolve, reject) => {
-            db.query(`SELECT artists.artist_id as id, artists.artist_name AS name, artists.profile_picture AS profilePicture
+            db.query(`SELECT artists.artist_id as id, artists.artist_name AS name, artists.profile_picture AS profilePicture,
+             artists.birth_date as birthDate, artists.birth_place as birthPlace, artists.height as height
                 FROM artists
                 WHERE artists.artist_id = ${id}`, (err, rows, fields) => {
                 if (err) {
@@ -127,6 +128,20 @@ module.exports = {
                         reject(err)
                     } else {
                         resolve(rows)
+                    }
+                })
+        })
+    },
+    getUserFollows: (userId) => {
+        return new Promise((resolve, reject) => {
+            db.query(`SELECT artists.artist_id as id, artists.artist_name as name, artists.profile_picture AS imageName
+            FROM artists, users, follows
+            WHERE artists.artist_id = follows.artist_id AND users.user_id = follows.user_id AND users.user_id = ${userId}`,
+                (err, rows, fields) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(rows);
                     }
                 })
         })
