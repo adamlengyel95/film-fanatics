@@ -14,8 +14,10 @@ router.get('/', (req, res) => {
 
 router.get('/home', (req, res) => {
     if (!req.user) {
+        console.log('came here')
         movieService.getLatestMovies()
             .then((result) => {
+                console.log('results are', result)
                 res.send(result)
             }).catch((err) => {
                 res.status(500).send({ message: 'Error occured during fetching the latest movies', error: err })

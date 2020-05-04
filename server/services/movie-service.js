@@ -15,16 +15,16 @@ module.exports = {
     },
     getLatestMovies: () => {
         return new Promise((resolve, reject) => {
-            db.query(`SELECT *
+            db.query(`SELECT movies.movie_id as movieId, movies.release_date as releaseDate, movies.title, movies.description, movies.movie_cover AS imageName
             FROM movies
             ORDER BY movies.release_date DESC
-            LIMIT 10`)
-        }, (err, rows, fields) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(rows);
-            }
+            LIMIT 10`, (err, rows, fields) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            })
         })
     },
     getMovieById: (movieId) => {

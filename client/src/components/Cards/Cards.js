@@ -29,21 +29,22 @@ class Cards extends Component {
     }
 
     componentWillUnmount() {
-        console.log('Leaving cards...')
         this.props.clearCards()
     }
 
 
     render() {
+        const content = this.props.data.length === 0 ? <h3 className={classes.NoResultTitle}>Nincs találat</h3> :
+            <div className={classes.CardContainer}>
+                {
+                    this.props.data.map((actor) =>
+                        <Card key={actor.id} id={actor.id} title={actor.title} imageName={actor.imageName} />)
+                }
+            </div>;
         return (
             <>
                 <Navbar />
-                <div className={classes.ActorsContainer}>
-                    {
-                        this.props.data.map((actor) =>
-                            <Card key={actor.id} id={actor.id} title={actor.title} imageName={actor.imageName} />)
-                    }
-                </div>
+                {content}
             </>
         )
     }
